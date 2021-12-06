@@ -9,7 +9,7 @@
 
 <p align="center"><img src="https://raw.githubusercontent.com/slatedocs/img/main/screenshot-slate.png" width=700 alt="Screenshot of Example Documentation created with Slate"></p>
 
-<p align="center"><em>The example above was created with Slate. Check it out at <a href="https://slatedocs.github.io/slate">slatedocs.github.io/slate</a>.</em></p>
+<p align="center"><em>Source code of active API docs for api.satsacogroup.com</a>.</em></p>
 
 Features
 ------------
