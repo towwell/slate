@@ -3,6 +3,7 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 4567, host: 4567
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "2048"
+    vb.gui = true
   end
 
   config.vm.provision "bootstrap",
