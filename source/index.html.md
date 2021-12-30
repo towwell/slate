@@ -29,7 +29,8 @@ We currently support RESTful APIs with POST and GET requests.
 
 Version |  Date | Changelog
 --------- |  ----------- | -----------
-**1.01** | 1/12/2021 | Added UPC field for better searching on `inventory_status` API
+**1.1** | 30/12/2021 | Deployed API for retrieving of Shipment Order Status
+1.01 | 1/12/2021 | Added UPC field for better searching on `inventory_status` API
 1.0 | 15/11/2021 | Deployed Live API Endpoint
 
 
@@ -399,6 +400,89 @@ OUT_FOR_DELIVERY | Order package is on delivery by Shipment Distribution Courier
 DELIVERED | Order Delivered
 FAILED_TO_DELIVER | Order Failed to deliver
 RETURN | Order is returned
+
+
+## Retrieve Shipment Status
+
+```json
+curl "https://api.ssowms.com/api/track/awb_no?=TRP-030201" \
+{
+}
+```
+
+> Example Response:
+
+```json
+{
+    "request_id": "TEST_20211230072638_090039",
+    "success": true,
+    "errors": null,
+    "message": "Order history retrieved.",
+    "return_value": {
+        "timestamp": 1640849198,
+        "awb": "TRP-030201",
+        "reference_id": "TRP-030201",
+        "client_legal_name": "TEST_CUSTOMER",
+        "history": [
+            {
+                "step": "order_received",
+                "status": "complete",
+                "datetime": "2021-12-10 07:05:40",
+                "datetime_timestamp": 1639094740,
+                "note": "AWB : TRP-030201"
+            },
+            {
+                "step": "inbound",
+                "status": "complete",
+                "datetime": "2021-12-10 07:05:40",
+                "datetime_timestamp": 1639094740,
+                "note": ""
+            },
+            {
+                "step": "intransit",
+                "status": "intransit",
+                "datetime": "2021-12-10 07:05:40",
+                "datetime_timestamp": 1639094740,
+                "note": "SG Hub SET Logistics"
+            },
+            {
+                "step": "intransit",
+                "status": "intransit",
+                "datetime": "2021-12-10 07:05:40",
+                "datetime_timestamp": 1639094740,
+                "note": "SG Hub SET Logistics"
+            },
+            {
+                "step": "delivery",
+                "status": "success",
+                "datetime": "2021-12-11 13:09:47",
+                "datetime_timestamp": 1639202987,
+                "note": null
+            }
+        ]
+    }
+}
+
+```
+
+### HTTP Request
+
+`POST /track/awb_no?=`
+
+### Query Parameters
+Parameter| Type | Description | Mandatory
+--------| --------- | ----------- | -----
+awb_no | String | Only 1 AWB No at a time. Used in endpoint | Yes
+
+### Response Parameters
+Status | Description
+---------- | -------------
+order_received | Shipment Order recieved in system
+inbound | Shipment Order is pending pickup
+intransit | Shipment Order has been handed over
+out_for_delivery | Shipment Order is being delivered by 3PL
+delivery | Shipment Order has been successfully delivered
+failed_delivery | Shipment Order has failed delivery
 
 # Retrieve Inventory
 
