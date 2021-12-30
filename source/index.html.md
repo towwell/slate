@@ -465,6 +465,8 @@ curl "https://api.ssowms.com/api/track/awb_no?=TRP-030201" \
 
 ```
 
+This endpoint retrieves shipment status of order ID / AWB_No. provided
+
 ### HTTP Request
 
 `POST /track/awb_no?=`
