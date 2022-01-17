@@ -29,7 +29,8 @@ We currently support RESTful APIs with POST and GET requests.
 
 Version |  Date | Changelog
 --------- |  ----------- | -----------
-**1.1** | 30/12/2021 | Deployed API for retrieving of Shipment Order Status
+**1.11** | 17/01/2022 | Country Philippines supported for sender / receiver details
+1.1 | 30/12/2021 | Deployed API for retrieving of Shipment Order Status
 1.01 | 1/12/2021 | Added UPC field for better searching on `inventory_status` API
 1.0 | 15/11/2021 | Deployed Live API Endpoint
 
@@ -289,36 +290,36 @@ items | Array of Objects | Array of Item Objects. Refer to [Item Object](#item-o
 
 ### Sender Detail Object
 <aside class="notice"> 
-For sender & receiver objects, province, city, district and subdistrict is on a need to use basis depending on the country.</br> For Singapore, no extra fields are used </br> For Malaysia, province and city are mandatory
+For sender & receiver objects, province, city, district and subdistrict is on a need to use basis depending on the individual country.</br> For Singapore, no extra fields are used </br> For Malaysia, province and city are mandatory </br> For Philippines, province, city and subdistrict are mandatory
 </aside>
 Parameter| Type | Description | Mandatory (SG) | Mandatory (MY)
---------| --------- | ----------- | ------------- | ---------------
+--------| --------- | ----------- | ------------- | -------------
 addressee | String | Sender name | Yes | Yes
 address1 | String | Sender address | Yes | Yes
 address2 | String | Additional sender address info | No | No
 province | String | Address Province / State | No | **Yes**
 city | String | Address City | No | **Yes**
-district | String | Address District | No | No
-subdistrict | String | Address Sub-District | No | No
+district | String | Address District | No | No 
+subdistrict | String | Address Sub-District | No | No 
 postalcode | String | Address Postal Code | Yes | Yes
 country | String | Sender Country | Yes | Yes
 phone | String | Sender Phone number | Yes | Yes
-email | String | Sender Email | No | No
+email | String | Sender Email | No | No 
 
 ### Receiver Detail Object
-Parameter| Type | Description |  Mandatory (SG) | Mandatory (MY)
---------| --------- | ----------- | ------------- | ---------------
-addressee | String | Receivers name | Yes | Yes
-address1 | String | Shipment address | Yes | Yes
-address2 | String | Additional receiver address info | No | No
-province | String | Address Province / State | No | **Yes**
-city | String | Address City | No | **Yes**
-district | String | Address District | No | No
-subdistrict | String | Address Sub-District | No | No
-postalcode | String | Address Postal Code | Yes | Yes
-country | String | Receiver Country | Yes | Yes
-phone | String | Receiver Phone number | Yes | Yes
-email | String | Sender Email | No | No
+Parameter| Type | Description |  Mandatory (SG) | Mandatory (MY) | Mandatory (PH)
+--------| --------- | ----------- | ------------- | --------------- | -----------
+addressee | String | Receivers name | Yes | Yes | Yes
+address1 | String | Shipment address | Yes | Yes | Yes
+address2 | String | Additional receiver address info | No | No | No
+province | String | Address Province / State | No | **Yes** | **Yes**
+city | String | Address City | No | **Yes** | **Yes**
+district | String | Address District | No | No | No
+subdistrict | String | Address Sub-District | No | No | **Yes** (Barangay)
+postalcode | String | Address Postal Code | Yes | Yes | Yes
+country | String | Receiver Country | Yes | Yes | Yes
+phone | String | Receiver Phone number | Yes | Yes | Yes
+email | String | Sender Email | No | No | No
 
 ### Item Object
 Parameter| Type | Description | Mandatory
@@ -547,8 +548,8 @@ This endpoint retrieves inventory quantity for SKUs requested
 
 Parameter| Type | Description | Mandatory
 --------| --------- | ----------- | -----
-skus | Array | Array of skus, max 100 skus in 1 request | Yes **IF** upcs is empty. Leave empty array if unused
-upcs | Array | Array of upcs, max 100 upcs in 1 request | Yes **IF** skus is empty. Leave empty array if unused
+skus | Array | Array of skus, max 100 skus in 1 request | Yes **IF** upcs is empty. **MUST** Leave empty array if unused
+upcs | Array | Array of upcs, max 100 upcs in 1 request | Yes **IF** skus is empty. **MUST** Leave empty array if unused
 
 ### Response Parameters
 
@@ -558,5 +559,5 @@ quantity_onhand | Quantity currently in warehouse and not handed over
 quantity_available | Quantity available for fulfilment
 quantity_committed | Quantity assigned to sales orders but picking has not started
 quantity_backorder | Quantity that is not available and needed for order fulfilment
-quantity_onshelf | Quantity that is currently physically on shelving (Not picked yet)
+quantity_onshelf | Quantity that is currently physically on shelving but not picked yet
 quantity_onfulfill | Quantity that is reserved for order but fulfilment process has not started
