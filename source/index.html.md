@@ -27,9 +27,14 @@ Welcome to the Satsaco WMS API Documentation! Our API is used to retrieve client
 
 We currently support RESTful APIs with POST and GET requests.
 
+**Bold represents current API version**
+
+*Italic represents API version deprecated*
+
 Version |  Date | Changelog
 --------- |  ----------- | -----------
-**1.11** | 17/01/2022 | Country Philippines supported for sender / receiver details
+**1.12** | 03/02/2022 | Added 3PL AWB Number in `sales_track` API
+1.11 | 17/01/2022 | Country Philippines supported for sender / receiver details
 1.1 | 30/12/2021 | Deployed API for retrieving of Shipment Order Status
 1.01 | 1/12/2021 | Added UPC field for better searching on `inventory_status` API
 1.0 | 15/11/2021 | Deployed Live API Endpoint
@@ -340,7 +345,7 @@ unitsellingprice | Number | Unit selling price of item | No
 curl "https://api.ssowms.com/api/order/sales_track" \
 {
     "order_ids": [
-        "TEST001","TEST002"
+        "TEST001","TEST002","TEST003"
     ]
 }
 ```
@@ -359,14 +364,22 @@ curl "https://api.ssowms.com/api/order/sales_track" \
     ],
     "message": "Fetch status success.",
     "return_value": {
-        "timestamp": 1634358206,
-        "record_found": 1,
+        "timestamp": 1643869265,
+        "record_found": 2,
         "record_details": [
             {
                 "order_id": "TEST001",
-                "reference_id": "SD_TEST001-1",
-                "awb_no": "",
-                "status": "RETURN"
+                "reference_id": "TEST001_775239",
+                "awb_no": "TEST001",
+                "threepl_awb_no": "NVSGSETTEST001",
+                "status": "INTRANSIT"
+            },
+            {
+                "order_id": "TEST003",
+                "reference_id": "TEST003_775318",
+                "awb_no": "TEST003",
+                "threepl_awb_no": "NVSGSETTEST003",
+                "status": "DELIVERED"
             }
         ]
     }
